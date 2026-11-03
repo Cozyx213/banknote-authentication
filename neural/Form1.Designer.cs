@@ -93,7 +93,7 @@
             this.txtHidden.Name = "txtHidden";
             this.txtHidden.Size = new System.Drawing.Size(60, 20);
             this.txtHidden.TabIndex = 13;
-            this.txtHidden.Text = "8";
+            this.txtHidden.Text = "4";
             this.txtHidden.TextChanged += new System.EventHandler(this.txtHidden_TextChanged);
             // 
             // txtLearningRate
@@ -102,7 +102,7 @@
             this.txtLearningRate.Name = "txtLearningRate";
             this.txtLearningRate.Size = new System.Drawing.Size(60, 20);
             this.txtLearningRate.TabIndex = 14;
-            this.txtLearningRate.Text = "1.0";
+            this.txtLearningRate.Text = "0.5";
             this.txtLearningRate.TextChanged += new System.EventHandler(this.txtLearningRate_TextChanged);
             // 
             // txtEpochs
@@ -111,7 +111,7 @@
             this.txtEpochs.Name = "txtEpochs";
             this.txtEpochs.Size = new System.Drawing.Size(60, 20);
             this.txtEpochs.TabIndex = 15;
-            this.txtEpochs.Text = "500";
+            this.txtEpochs.Text = "250";
             this.txtEpochs.TextChanged += new System.EventHandler(this.txtEpochs_TextChanged);
             // 
             // btnTuneBanknote

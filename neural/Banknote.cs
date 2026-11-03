@@ -37,6 +37,8 @@ namespace neural
             {
                 
                 string[] cells = line.Split(',');
+                if (cells.Length != 5) continue; // blank or malformed line: skip it instead of crashing
+
                 var row = new double[5];
                 bool ok = true;
                 for (int i = 0; i < 5 && ok; i++)
