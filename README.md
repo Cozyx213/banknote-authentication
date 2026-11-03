@@ -40,7 +40,7 @@ They are now `readonly` fields, and a constructor `NeuralNet(input, hidden, outp
 so they can be tuned. This program passes the same value for both. The original constructors still use 0.2 / 0.15.
 
 ## Data description
-A longer version with feature statistics and limitations is in [DATA_DESCRIPTION.md](DATA_DESCRIPTION.md).
+See also [DATA_DESCRIPTION.md](DATA_DESCRIPTION.md).
 
 **Banknote Authentication** dataset from the UCI Machine Learning Repository
 (https://archive.ics.uci.edu/dataset/267/banknote+authentication), donated in 2012 by

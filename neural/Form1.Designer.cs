@@ -31,7 +31,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.lblBanknote = new System.Windows.Forms.Label();
             this.txtHidden = new System.Windows.Forms.TextBox();
             this.txtLearningRate = new System.Windows.Forms.TextBox();
@@ -53,7 +52,7 @@
             this.btnRunNN = new System.Windows.Forms.Button();
             this.lblOutput = new System.Windows.Forms.Label();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnLoadData = new System.Windows.Forms.Button();
             this.tabCharts = new System.Windows.Forms.TabControl();
             this.tabLoss = new System.Windows.Forms.TabPage();
             this.chartLoss = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -74,10 +73,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartRoc)).BeginInit();
             this.SuspendLayout();
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // lblBanknote
             // 
             this.lblBanknote.AutoSize = true;
@@ -94,7 +89,6 @@
             this.txtHidden.Size = new System.Drawing.Size(60, 20);
             this.txtHidden.TabIndex = 13;
             this.txtHidden.Text = "4";
-            this.txtHidden.TextChanged += new System.EventHandler(this.txtHidden_TextChanged);
             // 
             // txtLearningRate
             // 
@@ -103,7 +97,6 @@
             this.txtLearningRate.Size = new System.Drawing.Size(60, 20);
             this.txtLearningRate.TabIndex = 14;
             this.txtLearningRate.Text = "0.5";
-            this.txtLearningRate.TextChanged += new System.EventHandler(this.txtLearningRate_TextChanged);
             // 
             // txtEpochs
             // 
@@ -112,7 +105,6 @@
             this.txtEpochs.Size = new System.Drawing.Size(60, 20);
             this.txtEpochs.TabIndex = 15;
             this.txtEpochs.Text = "250";
-            this.txtEpochs.TextChanged += new System.EventHandler(this.txtEpochs_TextChanged);
             // 
             // btnTuneBanknote
             // 
@@ -283,15 +275,15 @@
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             // 
-            // button1
+            // btnLoadData
             // 
-            this.button1.Location = new System.Drawing.Point(65, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(263, 53);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Load Dataset";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnLoadData.Location = new System.Drawing.Point(65, 28);
+            this.btnLoadData.Name = "btnLoadData";
+            this.btnLoadData.Size = new System.Drawing.Size(263, 53);
+            this.btnLoadData.TabIndex = 20;
+            this.btnLoadData.Text = "Load Dataset";
+            this.btnLoadData.UseVisualStyleBackColor = true;
+            this.btnLoadData.Click += new System.EventHandler(this.btnLoadData_Click);
             // 
             // tabCharts
             // 
@@ -394,7 +386,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1292, 653);
             this.Controls.Add(this.tabCharts);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnLoadData);
             this.Controls.Add(this.grpNN);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnTuneBanknote);
@@ -416,7 +408,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label lblBanknote;
         private System.Windows.Forms.TextBox txtHidden;
         private System.Windows.Forms.TextBox txtLearningRate;
@@ -438,7 +429,7 @@
         private System.Windows.Forms.Button btnRunNN;
         private System.Windows.Forms.Label lblOutput;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnLoadData;
         private System.Windows.Forms.TabControl tabCharts;
         private System.Windows.Forms.TabPage tabLoss;
         private System.Windows.Forms.TabPage tabMetrics;

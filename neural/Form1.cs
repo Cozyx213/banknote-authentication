@@ -17,15 +17,10 @@ namespace neural
             InitializeComponent();
             SetupCharts();
         }
-        NeuralNet nn;
-        Bitmap loaded;
-        private void button1_Click(object sender, EventArgs e)
-        {
-            nn = new NeuralNet(2, 5, 1);
-        }
 
+        // ---------------- State kept between button clicks ----------------
 
-        private string FileName;
+        private string FileName;        // CSV chosen with "Load Dataset"
         NeuralNet banknoteNet;          // network made by "Create NN"
         List<double[]> bnTrain, bnTest; // scaled data used by "Train NN"
         double[] bnMin, bnMax;          // scaling from the training set, reused for "Run NN" inputs
@@ -33,32 +28,32 @@ namespace neural
         List<double> bnLoss = new List<double>();     // train loss of every epoch since "Create NN"
         List<double> bnTestLoss = new List<double>(); // test loss of every epoch since "Create NN"
 
-        // ---------------- Banknote authentication ----------------
-
-      
+        // ---------------- Hyperparameter tuning ----------------
 
         /// <summary>Load CSV -> 80/20 train/test split -> MinMax scale (fit on train only).</summary>
         private void PrepareBanknoteData(out List<double[]> train, out List<double[]> test)
         {
             Log("Loading and Parsing CSV");
-            
             List<double[]> rows = Banknote.LoadCsv(FileName);
 
-
-            Log("Spliting Data with 20% being test");
-
+            Log("Splitting Data with 20% being test");
             Banknote.Split(rows, 0.2, out List<double[]> rawTrain, out List<double[]> rawTest);
 
             Log("Min-Max Normalizing the data");
-
             Banknote.MinMaxScale(rawTrain, rawTest, out train, out test);
         }
 
+        /// <summary>Adds one line to the log box.</summary>
         private void Log(string line)
         {
             txtLog.AppendText(line + Environment.NewLine);
         }
 
+        /// <summary>
+        /// Grid search: trains a fresh network for every combination of hidden neurons, learning rate and
+        /// epochs, scores it on the test set, and saves the table to tuning_results.csv.
+        /// Does not touch the network made with "Create NN".
+        /// </summary>
         private void btnTuneBanknote_Click(object sender, EventArgs e)
         {
             int[] hiddenSizes = { 2, 4, 8};
@@ -96,16 +91,11 @@ namespace neural
             Log("Results saved to " + path);
         }
 
-        private void lblBanknote_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        // ---------------- Create / Train / Run (step by step) ----------------
-
+        // ---------------- Load / Create / Train / Run (step by step) ----------------
 
         private static readonly System.Globalization.CultureInfo Inv = System.Globalization.CultureInfo.InvariantCulture;
 
+        /// <summary>Loads the CSV, splits and scales it, and creates a new untrained 4 -> hidden -> 1 network.</summary>
         private void btnCreateNN_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtHidden.Text, out int hidden) || hidden < 1 ||
@@ -122,7 +112,7 @@ namespace neural
             Log("Loading and Parsing CSV");
             List<double[]> rows = Banknote.LoadCsv(FileName);
 
-            Log("Spliting Data with 20% being test");
+            Log("Splitting Data with 20% being test");
             Banknote.Split(rows, 0.2, out List<double[]> rawTrain, out List<double[]> rawTest);
 
             Log("Min-Max Normalizing the data");
@@ -136,14 +126,14 @@ namespace neural
             bnTestLoss.Clear();
             ClearCharts();
 
-
             Log("Train rows: " + bnTrain.Count + "   Test rows: " + bnTest.Count);
             Log("Network is untrained. Press \"Train NN\".");
             lblNNStatus.Text = "Created (untrained)";
             lblOutput.Text = "Output: -";
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        /// <summary>Lets the user pick the dataset CSV. The file is only read later, by "Create NN" or "Tune".</summary>
+        private void btnLoadData_Click(object sender, EventArgs e)
         {
             openFileDialog2.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
             openFileDialog2.FileName = "";
@@ -154,21 +144,10 @@ namespace neural
             }
         }
 
-        private void txtHidden_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtLearningRate_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEpochs_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Trains the existing network for the given number of epochs, logs the loss, saves training_log.csv,
+        /// prints train/test metrics and updates the graphs. Pressing it again continues training.
+        /// </summary>
         private void btnTrainNN_Click(object sender, EventArgs e)
         {
             if (banknoteNet == null)
@@ -218,6 +197,7 @@ namespace neural
             lblNNStatus.Text = string.Format(Inv, "Trained {0} epochs, test acc {1:0.00%}", bnEpochsTrained, bnTestMetrics.Accuracy);
         }
 
+        /// <summary>Scales the 4 typed-in feature values like the training data and shows the network's prediction.</summary>
         private void btnRunNN_Click(object sender, EventArgs e)
         {
             if (banknoteNet == null)
